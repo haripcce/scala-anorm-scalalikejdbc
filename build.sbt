@@ -10,7 +10,8 @@ libraryDependencies += "org.scalikejdbc" % "scalikejdbc-config_2.11" % "2.2.5"
 
 libraryDependencies ++= Seq(
   "com.typesafe.play" %% "anorm" % "2.5.1",
-  "com.h2database" % "h2" % "1.4.191"
+  //"com.h2database" % "h2" % "1.4.191",
+  "mysql" % "mysql-connector-java" % "5.1.18"
 )
 // https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12
 libraryDependencies += "org.slf4j" % "slf4j-log4j12" % "1.7.25" % "test"

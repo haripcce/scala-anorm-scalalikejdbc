@@ -10,8 +10,7 @@ import scalikejdbc.ConnectionPool
 import scalikejdbc.config.DBs
 
 case class Product(
-                    id: Long,
-                    ean: Long,
+                    id: Int,
                     name: String,
                     description: String)
 
@@ -19,8 +18,10 @@ object Manager {
   val sql: SqlQuery = SQL("select * from products order by name asc")
 
   def main(args: Array[String]): Unit = {
+    //Class.forName("com.mysql.jdbc.Driver")
+    // ConnectionPool.singleton("jdbc:mysql://localhost:3306/test", "root", "agreeya@123")
     DBs.setupAll()
-    getAllWithParser
+    getAllWithParser.foreach(x=>println(x.description))
   }
 
   import anorm.RowParser
@@ -28,12 +29,11 @@ object Manager {
   val productParser: RowParser[Product] = {
     import anorm.~
     import anorm.SqlParser._
-    long("id") ~
-      long("ean") ~
+      int("id") ~
       str("name") ~
       str("description") map {
-      case id ~ ean ~ name ~ description =>
-        Product(id, ean, name, description)
+      case id ~ name ~ description =>
+        Product(id, name, description)
     }
   }
 
